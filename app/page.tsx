@@ -1,9 +1,8 @@
-import { startGame, getState } from "../game/core/game";
+import { startGame } from "../game/core/game";
 
-startGame();
-const state = getState();
+export default async function Home() {
+  const state = await startGame();
 
-export default function Home() {
   return (
     <main>
       <h1>NEOCAP</h1>
