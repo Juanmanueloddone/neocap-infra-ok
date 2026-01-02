@@ -1,11 +1,16 @@
-import { initialGameState, GameState } from "./gameState";
+import type { Wallet, PlayerId } from "../economy/neoc";
 
-let state: GameState = structuredClone(initialGameState);
-
-export function getState() {
-  return state;
+export interface PlayerState {
+  id: PlayerId;
+  wallet: Wallet;
 }
 
-export function setState(next: GameState) {
-  state = next;
+export interface GameState {
+  players: Record<PlayerId, PlayerState>;
+  tick: number;
 }
+
+export const initialGameState: GameState = {
+  players: {},
+  tick: 0,
+};
