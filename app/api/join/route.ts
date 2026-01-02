@@ -9,7 +9,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "playerId required" }, { status: 400 });
   }
 
-  joinGame(playerId);
+  await joinGame(playerId);
 
   return NextResponse.json({ ok: true });
 }
