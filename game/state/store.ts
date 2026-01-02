@@ -1,11 +1,11 @@
-import { GameState, initialGameState } from "./gameState";
+import { initialGameState, GameState } from "./gameState";
 
-let state: GameState = initialGameState;
+let state: GameState = structuredClone(initialGameState);
 
-export function getGameState(): GameState {
+export function getState() {
   return state;
 }
 
-export function setGameState(next: GameState) {
+export function setState(next: GameState) {
   state = next;
 }
