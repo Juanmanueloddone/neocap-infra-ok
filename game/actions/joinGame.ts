@@ -1,5 +1,5 @@
 import { getState, setState } from "../state/store";
-import { PlayerId } from "../economy/neoc";
+import type { PlayerId } from "../economy/neoc";
 
 export function joinGame(playerId: PlayerId) {
   const state = getState();
