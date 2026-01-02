@@ -14,4 +14,3 @@ export const initialGameState: GameState = {
   players: {},
   tick: 0,
 };
-
