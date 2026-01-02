@@ -16,13 +16,14 @@ export async function joinGame(playerId: PlayerId) {
       ...state.players,
       [playerId]: {
         id: playerId,
+        lastSeenTick: state.tick, // 🔧 ESTA LÍNEA ES LA CLAVE
         wallet: {
           playerId,
           balance: 0,
         },
-        lastSeenTick: state.tick,
       },
     },
   });
 }
+
 
