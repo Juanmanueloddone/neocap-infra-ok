@@ -1,16 +1,14 @@
-import type { Wallet, PlayerId } from "../economy/neoc";
+import type { GameState } from "./types";
 
-export interface PlayerState {
-  id: PlayerId;
-  wallet: Wallet;
-}
-
-export interface GameState {
-  players: Record<PlayerId, PlayerState>;
-  tick: number;
-}
-
-export const initialGameState: GameState = {
+let state: GameState = {
   players: {},
   tick: 0,
 };
+
+export function getState(): GameState {
+  return state;
+}
+
+export function setState(next: GameState) {
+  state = next;
+}
