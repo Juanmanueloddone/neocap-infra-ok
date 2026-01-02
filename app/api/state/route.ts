@@ -1,13 +1,9 @@
 import { NextResponse } from "next/server";
 import { loadGameState } from "../../../game/state/persist";
+import { initialGameState } from "../../../game/state/gameState";
 
 export async function GET() {
   const state = await loadGameState();
 
-  return NextResponse.json(
-    state ?? {
-      players: {},
-      tick: 0,
-    }
-  );
+  return NextResponse.json(state ?? initialGameState);
 }
