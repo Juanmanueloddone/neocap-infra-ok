@@ -15,21 +15,3 @@ export const initialGameState: GameState = {
   tick: 0,
 };
 
-let gameState: GameState = structuredClone(initialGameState);
-
-export function getGameState(): GameState {
-  return gameState;
-}
-
-export function addPlayer(playerId: PlayerId) {
-  if (gameState.players[playerId]) return;
-
-  gameState.players[playerId] = {
-    id: playerId,
-    wallet: {
-      playerId,
-      balance: 0,
-    },
-  };
-}
-
