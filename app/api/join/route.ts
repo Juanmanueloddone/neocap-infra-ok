@@ -6,10 +6,7 @@ export async function POST(req: Request) {
   const playerId = formData.get("playerId");
 
   if (typeof playerId !== "string") {
-    return NextResponse.json(
-      { error: "playerId required" },
-      { status: 400 }
-    );
+    return NextResponse.json({ error: "playerId required" }, { status: 400 });
   }
 
   addPlayer(playerId);
