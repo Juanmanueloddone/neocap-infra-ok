@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server";
-import { getGameState, setGameState } from "@/game/state/store";
 import { joinGame } from "@/game/actions/joinGame";
 
 export async function POST(req: Request) {
@@ -10,9 +9,6 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "playerId required" }, { status: 400 });
   }
 
-  const state = getGameState();
-  const next = joinGame(state, playerId);
-  setGameState(next);
-
+  joinGame(playerId);
   return NextResponse.json({ ok: true });
 }
