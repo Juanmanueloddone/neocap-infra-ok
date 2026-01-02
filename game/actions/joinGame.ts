@@ -6,10 +6,17 @@ export function joinGame(playerId: PlayerId) {
 
   if (state.players[playerId]) return;
 
-  state.players[playerId] = {
-    id: playerId,
-    wallet: { balance: 0 },
-  };
-
-  setState({ ...state });
+  setState({
+    ...state,
+    players: {
+      ...state.players,
+      [playerId]: {
+        id: playerId,
+        wallet: {
+          playerId,
+          balance: 0,
+        },
+      },
+    },
+  });
 }
