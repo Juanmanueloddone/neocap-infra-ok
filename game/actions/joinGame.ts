@@ -1,12 +1,16 @@
-import { getState, setState } from "../state/store";
-import type { PlayerId } from "../economy/neoc";
+import { loadGameState, saveGameState } from "../state/persist";
+import { PlayerId } from "../economy/neoc";
 
-export function joinGame(playerId: PlayerId) {
-  const state = getState();
+export async function joinGame(playerId: PlayerId) {
+  const state =
+    (await loadGameState()) ?? {
+      players: {},
+      tick: 0,
+    };
 
   if (state.players[playerId]) return;
 
-  setState({
+  await saveGameState({
     ...state,
     players: {
       ...state.players,
