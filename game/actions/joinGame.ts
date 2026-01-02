@@ -20,7 +20,9 @@ export async function joinGame(playerId: PlayerId) {
           playerId,
           balance: 0,
         },
+        lastSeenTick: state.tick,
       },
     },
   });
 }
+
