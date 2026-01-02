@@ -1,9 +1,6 @@
-import type { GameState } from "./types";
+import { initialGameState, GameState } from "./gameState";
 
-let state: GameState = {
-  players: {},
-  tick: 0,
-};
+let state: GameState = initialGameState;
 
 export function getState(): GameState {
   return state;
