@@ -3,7 +3,9 @@ import type { Wallet, PlayerId } from "../economy/neoc";
 export interface PlayerState {
   id: PlayerId;
   wallet: Wallet;
-  lastSeenTick: number; // ← ESTE ES EL CAMPO QUE FALTABA
+
+  // ⬇️ clave: opcional para no romper nada existente
+  lastSeenTick?: number;
 }
 
 export interface GameState {
