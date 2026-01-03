@@ -4,7 +4,8 @@ import { loadGameState } from "../../../game/state/persist";
 import { initialGameState } from "../../../game/state/gameState";
 
 export async function GET() {
-  const state = await loadGameState();
-
-  return NextResponse.json(state ?? initialGameState);
+  return NextResponse.json({
+    supabaseUrl: process.env.NEXT_PUBLIC_SUPABASE_URL,
+    state: (await loadGameState()) ?? initialGameState,
+  });
 }
