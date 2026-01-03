@@ -1,31 +1,26 @@
 import { loadGameState, saveGameState } from "../state/persist";
+import { mintNEOC } from "../economy/neoc";
 import { PlayerId } from "../economy/neoc";
-import { initialGameState } from "../state/gameState";
 
 export async function claimNEOC(playerId: PlayerId) {
-  const state = (await loadGameState()) ?? initialGameState;
+  const state = await loadGameState();
+  if (!state) return;
 
   const player = state.players[playerId];
   if (!player) return;
 
-  // evita doble claim en el mismo tick
-  if (player.lastSeenTick === state.tick) return;
+  const updatedPlayer = {
+    ...player,
+    wallet: mintNEOC(player.wallet, 1),
+  };
 
   const nextState = {
     ...state,
     players: {
       ...state.players,
-      [playerId]: {
-        ...player,
-        lastSeenTick: state.tick,
-        wallet: {
-          ...player.wallet,
-          balance: player.wallet.balance + 1,
-        },
-      },
+      [playerId]: updatedPlayer,
     },
   };
 
   await saveGameState(nextState);
 }
-
