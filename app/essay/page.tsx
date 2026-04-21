@@ -1,26 +1,12 @@
 import Nav from "../../components/Nav";
-import { essaySummary } from "../../lib/mock";
+import Link from "next/link";
 
-const essayText = `
-Vivimos en la realidad en la que aceptamos vivir.
-Caso contrario, la cambiaríamos o lucharíamos por cambiarla.
-
-El problema no es un gobierno aislado. El problema es el sistema.
-Municipio 0 propone superar la representación cerrada y devolver la decisión al pueblo.
-
-El Índice NEOC mide condiciones reales de vida:
-agua, aire, naturaleza, energía, comunidad, paz y salud.
-
-La moneda NEOC no deriva del humo fiduciario.
-Deriva del estado real del sistema.
-
-Si el mundo mejora, el índice sube.
-Si el mundo se degrada, baja.
-
-NEOCAP convierte esa idea en experiencia:
-hechos reales, voto directo, acumulación real de NEOC
-e impacto sobre un sistema medible.
-`;
+const essaySummary = [
+  "El problema no es un partido: es el sistema.",
+  "Municipio 0 propone decisión directa en lugar de representación cerrada.",
+  "El Índice NEOC mide agua, aire, naturaleza, energía, comunidad, paz y salud.",
+  "NEOC deriva su valor del estado real del sistema.",
+];
 
 export default function EssayPage() {
   return (
@@ -30,7 +16,7 @@ export default function EssayPage() {
           <div className="kicker">Ensayo</div>
           <h1 className="title">Neocapitalismo</h1>
           <p className="subtitle">
-            La idea madre adentro del juego.
+            La cosmovisión completa detrás de Municipio 0.
           </p>
         </div>
 
@@ -46,8 +32,30 @@ export default function EssayPage() {
         </div>
 
         <div className="card">
-          <div className="small">Texto</div>
-          <div className="essay-copy">{essayText}</div>
+          <div className="small">Leer</div>
+          <p className="subtitle">
+            Leé el texto completo del ensayo.
+          </p>
+
+          <div className="stack" style={{ marginTop: 12 }}>
+            <Link href="/neocap.docx.pdf" target="_blank">
+              <button className="button secondary">Abrir libro / PDF</button>
+            </Link>
+          </div>
+        </div>
+
+        <div className="card">
+          <div className="small">Escuchar</div>
+          <p className="subtitle">
+            Nota de voz sobre la cosmovisión de NEOCAP.
+          </p>
+
+          <div style={{ marginTop: 12 }}>
+            <audio controls style={{ width: "100%" }}>
+              <source src="/audio/cosmovision-neocap.mp3" type="audio/mpeg" />
+              Tu navegador no soporta audio.
+            </audio>
+          </div>
         </div>
       </section>
 
