@@ -7,7 +7,9 @@ export type EventCard = {
   title: string;
   summary: string;
   question: string;
+  line: string;
   imageUrl?: string;
+  url?: string;
 };
 
 export const mockEvent: EventCard = {
@@ -21,14 +23,8 @@ export const mockEvent: EventCard = {
     "El presupuesto vuelve a priorizar guerra, presión internacional y gasto militar mientras la vida cotidiana se encarece.",
   question:
     "Si fueras ciudadano de EE.UU., ¿pagarías contento esos impuestos?",
+  line:
+    "Si casi nadie elegiría sostener esto en su propia vida, entonces no es voluntad popular: es poder concentrado.",
   imageUrl:
     "https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?auto=format&fit=crop&w=1200&q=80",
 };
-
-export const essaySummary = [
-  "El problema no es un partido ni un gobierno aislado. El problema es el sistema.",
-  "Municipio 0 propone decisión directa en lugar de representación cerrada.",
-  "El Índice NEOC mide condiciones reales de vida: agua, aire, naturaleza, energía, comunidad, paz y salud.",
-  "La moneda NEOC deriva su valor de ese estado real del sistema y no del humo fiduciario.",
-  "En NEOCAP votás hechos reales, ganás NEOC y afectás un mundo medible."
-];
