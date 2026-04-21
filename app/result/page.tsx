@@ -15,6 +15,9 @@ export default function ResultPage() {
     }
   }, []);
 
+  const globalPercent = vote === "si" ? 8 : 92;
+  const globalLabel = vote === "si" ? "votó SI" : "votó NO";
+
   return (
     <main className="app-shell">
       <section className="screen">
@@ -23,13 +26,16 @@ export default function ResultPage() {
           <p className={vote === "si" ? "result-yes" : "result-no"}>
             {vote?.toUpperCase() ?? "-"}
           </p>
+
           <div className="divider" />
+
           <div className="small">Voto global</div>
-          <p className="big-number">92%</p>
-          <p className="subtitle">{vote === "si" ? "votó SI" : "votó NO"}</p>
+          <p className="big-number">{globalPercent}%</p>
+          <p className="subtitle">{globalLabel}</p>
         </div>
 
         <div className="card">
+          <div className="small">Lectura</div>
           <p className="subtitle">{mockEvent.line}</p>
         </div>
 
