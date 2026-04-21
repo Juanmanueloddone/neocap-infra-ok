@@ -1,6 +1,8 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
+import Nav from "../components/Nav";
 
 type GameState = {
   tick: number;
@@ -14,54 +16,89 @@ type GameState = {
   >;
 };
 
-export default function Home() {
+const metrics = [
+  { label: "Agua", value: 80 },
+  { label: "Aire", value: 61 },
+  { label: "Naturaleza", value: 58 },
+  { label: "Energía", value: 49 },
+  { label: "Comunidad", value: 67 },
+  { label: "Paz", value: 52 },
+  { label: "Salud", value: 73 },
+];
+
+export default function HomePage() {
   const [state, setState] = useState<GameState | null>(null);
   const playerId = "player-1";
 
-  async function loadState() {
-    const res = await fetch("/api/state");
-    const data = await res.json();
-    setState(data.state ?? data);
-  }
-
-  async function runTick() {
-    await fetch("/api/tick", { method: "POST" });
-    await loadState();
-  }
-
-  async function claim() {
-    await fetch("/api/claim", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ playerId }),
-    });
-    await loadState();
-  }
-
   useEffect(() => {
+    async function loadState() {
+      const res = await fetch("/api/state", { cache: "no-store" });
+      const data = await res.json();
+      setState(data.state ?? data);
+    }
+
     loadState();
   }, []);
 
   const balance = state?.players[playerId]?.wallet.balance ?? 0;
+  const tick = state?.tick ?? 0;
+  const indexNeo = Math.round(
+    metrics.reduce((acc, item) => acc + item.value, 0) / metrics.length
+  );
 
   return (
-    <main style={{ padding: 20, fontFamily: "sans-serif" }}>
-      <h1>NEOCAP — Debug UI</h1>
+    <main className="app-shell">
+      <section className="screen">
+        <div className="hero">
+          <div className="kicker">Municipio 0</div>
+          <h1 className="title">NEOCAP</h1>
+          <p className="subtitle">
+            Votá hechos reales. Ganá NEOC. Alterá el índice de la vida.
+          </p>
+        </div>
 
-      <p>
-        <strong>Tick:</strong> {state?.tick ?? "-"}
-      </p>
+        <div className="card strong">
+          <div className="row">
+            <div>
+              <div className="small">Saldo</div>
+              <p className="big-number">{balance}</p>
+            </div>
+            <div className="center">
+              <div className="small">Tick</div>
+              <p className="big-number">{tick}</p>
+            </div>
+          </div>
+          <div className="divider" />
+          <div className="small">Índice NEOC</div>
+          <p className="big-number">{indexNeo}</p>
+        </div>
 
-      <p>
-        <strong>Balance:</strong> {balance} NEOC
-      </p>
+        <div className="card">
+          {metrics.map((item) => (
+            <div className="metric-row" key={item.label}>
+              <div className="metric-label">{item.label}</div>
+              <div className="metric-value">{item.value}</div>
+              <div className="metric-bar">
+                <span style={{ width: `${item.value}%` }} />
+              </div>
+            </div>
+          ))}
+        </div>
 
-      <div style={{ marginTop: 20 }}>
-        <button onClick={runTick}>Run Tick</button>
-        <button onClick={claim} style={{ marginLeft: 10 }}>
-          Claim NEOC
-        </button>
-      </div>
+        <div className="stack">
+          <Link href="/vote">
+            <button className="button primary">Votar ahora</button>
+          </Link>
+          <Link href="/intro">
+            <button className="button secondary">Introducción</button>
+          </Link>
+          <Link href="/essay">
+            <button className="button secondary">Leer ensayo</button>
+          </Link>
+        </div>
+      </section>
+
+      <Nav />
     </main>
   );
 }
